@@ -1,0 +1,40 @@
+<div class="fslider-product-autocomplete admin__field-control" data-bind="css: $data.additionalClasses">
+    <!-- ko if: displayLabel -->
+    <div class="fslider-selected">
+        <span class="fslider-selected-label" data-bind="text: displayLabel"></span>
+        <button type="button" class="action-default fslider-clear" data-bind="click: clearSelection">
+            <span data-bind="i18n: 'Change'"></span>
+        </button>
+    </div>
+    <!-- /ko -->
+
+    <!-- ko ifnot: displayLabel -->
+    <div class="fslider-search-wrap">
+        <input type="text"
+               class="admin__control-text"
+               data-bind="event: { keyup: onSearch }, attr: { placeholder: $t('Search by product name or SKU…') }"
+               autocomplete="off"/>
+
+        <!-- ko if: isLoading -->
+        <span class="fslider-loading" data-bind="text: $t('Searching…')"></span>
+        <!-- /ko -->
+
+        <!-- ko if: results.length > 0 -->
+        <ul class="fslider-results">
+            <!-- ko foreach: results -->
+            <li class="fslider-result-item" data-bind="click: function () { $parent.select($data); }">
+                <strong data-bind="text: name"></strong>
+                <span data-bind="text: ' — SKU: ' + sku + ' — ID: ' + id"></span>
+            </li>
+            <!-- /ko -->
+        </ul>
+        <!-- /ko -->
+
+        <!-- ko if: searchTerm && searchTerm.length >= minChars && !isLoading && results.length === 0 -->
+        <div class="fslider-empty" data-bind="i18n: 'No products found.'"></div>
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+
+    <input type="hidden" data-bind="attr: { name: inputName }, value: value"/>
+</div>

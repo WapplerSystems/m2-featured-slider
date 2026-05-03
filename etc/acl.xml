@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::content">
+                    <resource id="WapplerSystems_FeaturedSlider::manage" title="Featured Slider" sortOrder="50">
+                        <resource id="WapplerSystems_FeaturedSlider::slider" title="Sliders" sortOrder="10"/>
+                        <resource id="WapplerSystems_FeaturedSlider::slide" title="Slides" sortOrder="20"/>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

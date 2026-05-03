@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="WapplerSystems\FeaturedSlider\Api\Data\SliderInterface"
+                type="WapplerSystems\FeaturedSlider\Model\Slider"/>
+    <preference for="WapplerSystems\FeaturedSlider\Api\Data\SlideInterface"
+                type="WapplerSystems\FeaturedSlider\Model\Slide"/>
+    <preference for="WapplerSystems\FeaturedSlider\Api\SliderRepositoryInterface"
+                type="WapplerSystems\FeaturedSlider\Model\SliderRepository"/>
+    <preference for="WapplerSystems\FeaturedSlider\Api\SlideRepositoryInterface"
+                type="WapplerSystems\FeaturedSlider\Model\SlideRepository"/>
+
+    <virtualType name="WapplerSystems\FeaturedSlider\Model\Slider\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">wapplersystems_featuredslider_slider</argument>
+            <argument name="resourceModel" xsi:type="string">WapplerSystems\FeaturedSlider\Model\ResourceModel\Slider\Collection</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="WapplerSystems\FeaturedSlider\Model\Slide\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">wapplersystems_featuredslider_slide</argument>
+            <argument name="resourceModel" xsi:type="string">WapplerSystems\FeaturedSlider\Model\ResourceModel\Slide\Collection</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="featuredslider_slider_listing_data_source" xsi:type="string">WapplerSystems\FeaturedSlider\Model\Slider\Grid\Collection</item>
+                <item name="featuredslider_slide_listing_data_source" xsi:type="string">WapplerSystems\FeaturedSlider\Model\Slide\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

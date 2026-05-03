@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="featuredslider_slider" class="WapplerSystems\FeaturedSlider\Block\Widget\Slider"
+            placeholder_image="WapplerSystems_FeaturedSlider::images/widget.png">
+        <label translate="true">Featured Slider</label>
+        <description translate="true">Renders a featured slider by identifier.</description>
+        <parameters>
+            <parameter name="identifier" xsi:type="select" required="true" visible="true"
+                       source_model="WapplerSystems\FeaturedSlider\Model\Source\SliderIdentifiers">
+                <label translate="true">Slider</label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">featuredslider_slider_form.featuredslider_slider_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Slider</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">featuredslider_slider_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+
+    <settings>
+        <buttons>
+            <button name="back" class="WapplerSystems\FeaturedSlider\Block\Adminhtml\Slider\BackButton"/>
+            <button name="delete" class="WapplerSystems\FeaturedSlider\Block\Adminhtml\Slider\DeleteButton"/>
+            <button name="save" class="WapplerSystems\FeaturedSlider\Block\Adminhtml\Slider\SaveButton"/>
+            <button name="save_and_continue" class="WapplerSystems\FeaturedSlider\Block\Adminhtml\Slider\SaveAndContinueButton"/>
+        </buttons>
+        <namespace>featuredslider_slider_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>featuredslider_slider_form.featuredslider_slider_form_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="featuredslider_slider_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="*/*/save"/>
+        </settings>
+        <dataProvider class="WapplerSystems\FeaturedSlider\Model\Slider\DataProvider"
+                      name="featuredslider_slider_form_data_source">
+            <settings>
+                <requestFieldName>slider_id</requestFieldName>
+                <primaryFieldName>slider_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="general">
+        <settings>
+            <label translate="true">General</label>
+        </settings>
+        <field name="slider_id" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+                <dataScope>slider_id</dataScope>
+            </settings>
+        </field>
+        <field name="title" formElement="input" sortOrder="10">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Title</label>
+                <dataScope>title</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="identifier" formElement="input" sortOrder="20">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Identifier</label>
+                <notice translate="true">Used to reference the slider from layout XML / widgets. Lowercase, no spaces.</notice>
+                <dataScope>identifier</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                    <rule name="validate-identifier" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="is_active" formElement="checkbox" sortOrder="30">
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Active</label>
+                <dataScope>is_active</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="stores" formElement="multiselect" sortOrder="40" component="Magento_Ui/js/form/element/ui-select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filterOptions" xsi:type="boolean">true</item>
+                    <item name="multiple" xsi:type="boolean">true</item>
+                    <item name="showCheckbox" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>int</dataType>
+                <label translate="true">Store Views</label>
+                <dataScope>stores</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Magento\Cms\Ui\Component\Listing\Column\Cms\Options"/>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+    </fieldset>
+
+    <fieldset name="behavior">
+        <settings>
+            <label translate="true">Behavior</label>
+            <collapsible>true</collapsible>
+        </settings>
+        <field name="autoplay" formElement="checkbox">
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Autoplay</label>
+                <dataScope>autoplay</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="autoplay_delay" formElement="input">
+            <settings>
+                <dataType>number</dataType>
+                <label translate="true">Autoplay Delay (ms)</label>
+                <dataScope>autoplay_delay</dataScope>
+            </settings>
+        </field>
+        <field name="loop" formElement="checkbox">
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Loop</label>
+                <dataScope>loop</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="show_pagination" formElement="checkbox">
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Show Pagination Dots</label>
+                <dataScope>show_pagination</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="show_navigation" formElement="checkbox">
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Show Prev/Next Arrows</label>
+                <dataScope>show_navigation</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="slides_per_view" formElement="input">
+            <settings>
+                <dataType>number</dataType>
+                <label translate="true">Slides Per View (Desktop)</label>
+                <dataScope>slides_per_view</dataScope>
+            </settings>
+        </field>
+        <field name="slides_per_view_mobile" formElement="input">
+            <settings>
+                <dataType>number</dataType>
+                <label translate="true">Slides Per View (Mobile)</label>
+                <dataScope>slides_per_view_mobile</dataScope>
+            </settings>
+        </field>
+        <field name="space_between" formElement="input">
+            <settings>
+                <dataType>number</dataType>
+                <label translate="true">Space Between (px)</label>
+                <dataScope>space_between</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+</form>

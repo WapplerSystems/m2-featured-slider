@@ -1,0 +1,73 @@
+<?php
+/** @var \WapplerSystems\FeaturedSlider\Block\Slider $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+$slider = $block->getSlider();
+if (!$slider) {
+    return;
+}
+$slides = $block->getSlides();
+if (empty($slides)) {
+    return;
+}
+
+$domId = $block->getDomId();
+$config = $block->getSwiperConfigJson();
+?>
+<div class="fslider-wrapper" id="<?= $escaper->escapeHtmlAttr($domId) ?>"
+     data-mage-init='{"WapplerSystems_FeaturedSlider/js/slider": <?= /* @noEscape */ $config ?>}'>
+    <?php if ($slider->getTitle()): ?>
+        <h2 class="fslider-title"><?= $escaper->escapeHtml($slider->getTitle()) ?></h2>
+    <?php endif; ?>
+
+    <div class="swiper fslider-swiper">
+        <div class="swiper-wrapper">
+            <?php foreach ($slides as $slide): ?>
+                <?php
+                $img = $block->getImageUrl($slide);
+                $link = $block->getSlideLink($slide);
+                $target = $escaper->escapeHtmlAttr($slide->getLinkTarget());
+                $alt = $slide->getImageAlt() ?: $slide->getTitle();
+                ?>
+                <div class="swiper-slide fslider-slide">
+                    <?php if ($link): ?>
+                        <a href="<?= $escaper->escapeUrl($link) ?>" target="<?= $target ?>" class="fslider-link">
+                    <?php endif; ?>
+
+                    <?php if ($img): ?>
+                        <div class="fslider-media">
+                            <img src="<?= $escaper->escapeUrl($img) ?>"
+                                 alt="<?= $escaper->escapeHtmlAttr($alt) ?>"
+                                 loading="lazy"/>
+                        </div>
+                    <?php endif; ?>
+
+                    <div class="fslider-caption">
+                        <?php if ($slide->getTitle()): ?>
+                            <h3 class="fslider-slide-title"><?= $escaper->escapeHtml($slide->getTitle()) ?></h3>
+                        <?php endif; ?>
+                        <?php if ($slide->getSubtitle()): ?>
+                            <p class="fslider-slide-subtitle"><?= $escaper->escapeHtml($slide->getSubtitle()) ?></p>
+                        <?php endif; ?>
+                        <?php if ($slide->getDescription()): ?>
+                            <div class="fslider-slide-description"><?= $escaper->escapeHtml($slide->getDescription()) ?></div>
+                        <?php endif; ?>
+                    </div>
+
+                    <?php if ($link): ?>
+                        </a>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <?php if ($slider->getShowPagination()): ?>
+            <div class="swiper-pagination"></div>
+        <?php endif; ?>
+
+        <?php if ($slider->getShowNavigation()): ?>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        <?php endif; ?>
+    </div>
+</div>

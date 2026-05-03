@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">featuredslider_slide_listing.featuredslider_slide_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="*/*/new"/>
+                <class>primary</class>
+                <label translate="true">Add New Slide</label>
+            </button>
+        </buttons>
+        <spinner>featuredslider_slide_columns</spinner>
+        <deps>
+            <dep>featuredslider_slide_listing.featuredslider_slide_listing_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="featuredslider_slide_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">slide_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>WapplerSystems_FeaturedSlider::slide</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"
+                      name="featuredslider_slide_listing_data_source">
+            <settings>
+                <requestFieldName>slide_id</requestFieldName>
+                <primaryFieldName>slide_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <massaction name="listing_massaction">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Delete selected slides?</message>
+                        <title translate="true">Delete</title>
+                    </confirm>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                    <url path="*/*/massDelete"/>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+
+    <columns name="featuredslider_slide_columns">
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>slide_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="slide_id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="title">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Title</label>
+            </settings>
+        </column>
+        <column name="slider_id" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options class="WapplerSystems\FeaturedSlider\Model\Source\Sliders"/>
+                <dataType>select</dataType>
+                <filter>select</filter>
+                <label translate="true">Slider</label>
+            </settings>
+        </column>
+        <column name="content_type" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options class="WapplerSystems\FeaturedSlider\Model\Source\ContentType"/>
+                <dataType>select</dataType>
+                <filter>select</filter>
+                <label translate="true">Content Type</label>
+            </settings>
+        </column>
+        <column name="sort_order">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Sort</label>
+            </settings>
+        </column>
+        <column name="is_active" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options class="Magento\Config\Model\Config\Source\Yesno"/>
+                <dataType>select</dataType>
+                <filter>select</filter>
+                <label translate="true">Active</label>
+            </settings>
+        </column>
+        <column name="updated_at" class="Magento\Ui\Component\Listing\Columns\Date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Updated</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="WapplerSystems\FeaturedSlider\Ui\Component\Listing\Column\SlideActions">
+            <settings>
+                <indexField>slide_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="wapplersystems_featuredslider_slider" resource="default" engine="innodb"
+           comment="Featured Slider">
+        <column xsi:type="int" name="slider_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Slider ID"/>
+        <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Title"/>
+        <column xsi:type="varchar" name="identifier" nullable="false" length="100" comment="Identifier (URL key)"/>
+        <column xsi:type="smallint" name="is_active" padding="5" unsigned="true" nullable="false" default="1"
+                comment="Is Active"/>
+        <column xsi:type="smallint" name="autoplay" padding="5" unsigned="true" nullable="false" default="1"
+                comment="Autoplay"/>
+        <column xsi:type="int" name="autoplay_delay" padding="10" unsigned="true" nullable="false" default="5000"
+                comment="Autoplay Delay (ms)"/>
+        <column xsi:type="smallint" name="loop" padding="5" unsigned="true" nullable="false" default="1"
+                comment="Loop"/>
+        <column xsi:type="smallint" name="show_pagination" padding="5" unsigned="true" nullable="false" default="1"
+                comment="Show Pagination"/>
+        <column xsi:type="smallint" name="show_navigation" padding="5" unsigned="true" nullable="false" default="1"
+                comment="Show Navigation"/>
+        <column xsi:type="int" name="slides_per_view" padding="10" unsigned="true" nullable="false" default="3"
+                comment="Slides Per View (Desktop)"/>
+        <column xsi:type="int" name="slides_per_view_mobile" padding="10" unsigned="true" nullable="false" default="1"
+                comment="Slides Per View (Mobile)"/>
+        <column xsi:type="int" name="space_between" padding="10" unsigned="true" nullable="false" default="20"
+                comment="Space Between Slides (px)"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="slider_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="WAPPLERSYSTEMS_FEATUREDSLIDER_SLIDER_IDENTIFIER">
+            <column name="identifier"/>
+        </constraint>
+    </table>
+
+    <table name="wapplersystems_featuredslider_slider_store" resource="default" engine="innodb"
+           comment="Featured Slider Store Mapping">
+        <column xsi:type="int" name="slider_id" padding="10" unsigned="true" nullable="false"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="slider_id"/>
+            <column name="store_id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="WS_FS_SLIDER_STORE_SLIDER_ID_WS_FS_SLIDER_SLIDER_ID"
+                    table="wapplersystems_featuredslider_slider_store" column="slider_id"
+                    referenceTable="wapplersystems_featuredslider_slider" referenceColumn="slider_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="foreign"
+                    referenceId="WS_FS_SLIDER_STORE_STORE_ID_STORE_STORE_ID"
+                    table="wapplersystems_featuredslider_slider_store" column="store_id"
+                    referenceTable="store" referenceColumn="store_id"
+                    onDelete="CASCADE"/>
+        <index referenceId="WS_FS_SLIDER_STORE_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+    </table>
+
+    <table name="wapplersystems_featuredslider_slide" resource="default" engine="innodb"
+           comment="Featured Slide">
+        <column xsi:type="int" name="slide_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Slide ID"/>
+        <column xsi:type="int" name="slider_id" padding="10" unsigned="true" nullable="false" comment="Slider ID"/>
+        <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Title"/>
+        <column xsi:type="varchar" name="subtitle" nullable="true" length="255" comment="Subtitle"/>
+        <column xsi:type="text" name="description" nullable="true" comment="Description"/>
+        <column xsi:type="varchar" name="image" nullable="true" length="500" comment="Image"/>
+        <column xsi:type="varchar" name="image_alt" nullable="true" length="255" comment="Image Alt Text"/>
+        <column xsi:type="varchar" name="content_type" nullable="false" length="20" default="url"
+                comment="Content Type (url|product|category|cms_page)"/>
+        <column xsi:type="varchar" name="link_url" nullable="true" length="500" comment="Link URL"/>
+        <column xsi:type="int" name="link_product_id" padding="10" unsigned="true" nullable="true"
+                comment="Linked Product ID"/>
+        <column xsi:type="int" name="link_category_id" padding="10" unsigned="true" nullable="true"
+                comment="Linked Category ID"/>
+        <column xsi:type="int" name="link_cms_page_id" padding="10" unsigned="true" nullable="true"
+                comment="Linked CMS Page ID"/>
+        <column xsi:type="varchar" name="link_target" nullable="false" length="10" default="_self"
+                comment="Link Target"/>
+        <column xsi:type="int" name="sort_order" padding="10" nullable="false" default="0" comment="Sort Order"/>
+        <column xsi:type="smallint" name="is_active" padding="5" unsigned="true" nullable="false" default="1"
+                comment="Is Active"/>
+        <column xsi:type="datetime" name="active_from" nullable="true" comment="Active From"/>
+        <column xsi:type="datetime" name="active_to" nullable="true" comment="Active To"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="slide_id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="WS_FS_SLIDE_SLIDER_ID_WS_FS_SLIDER_SLIDER_ID"
+                    table="wapplersystems_featuredslider_slide" column="slider_id"
+                    referenceTable="wapplersystems_featuredslider_slider" referenceColumn="slider_id"
+                    onDelete="CASCADE"/>
+        <index referenceId="WS_FS_SLIDE_SLIDER_ID_SORT" indexType="btree">
+            <column name="slider_id"/>
+            <column name="sort_order"/>
+        </index>
+    </table>
+</schema>
