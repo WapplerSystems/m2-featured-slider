@@ -75,6 +75,15 @@ class Slider extends Template
         return array_values($collection->getItems());
     }
 
+    /**
+     * Widget parameter "show_title"; defaults to on so existing widgets keep their heading.
+     */
+    public function isTitleVisible(): bool
+    {
+        $value = $this->getData('show_title');
+        return $value === null || $value === '' || (bool)(int)$value;
+    }
+
     public function getDomId(): string
     {
         $slider = $this->getSlider();
@@ -87,20 +96,29 @@ class Slider extends Template
         if (!$slider) {
             return '{}';
         }
+        $slideCount = count($this->getSlides());
+        // Swiper can only loop when there are more slides than fit into the view. Every breakpoint sets
+        // "loop" explicitly, because Swiper keeps the previous breakpoint's value for keys a breakpoint omits.
+        $view = static function (int $perView) use ($slider, $slideCount): array {
+            return [
+                'slidesPerView' => $perView,
+                'loop' => $slider->getLoop() && $slideCount > $perView,
+            ];
+        };
+        $mobile = $view($slider->getSlidesPerViewMobile());
         return (string)json_encode([
-            'loop' => $slider->getLoop(),
+            'loop' => $mobile['loop'],
             'autoplay' => $slider->getAutoplay() ? ['delay' => $slider->getAutoplayDelay()] : false,
             'pagination' => $slider->getShowPagination(),
             'navigation' => $slider->getShowNavigation(),
-            'slidesPerView' => $slider->getSlidesPerViewMobile(),
+            'slidesPerView' => $mobile['slidesPerView'],
             'spaceBetween' => $slider->getSpaceBetween(),
             'breakpoints' => [
-                768 => [
-                    'slidesPerView' => max(2, (int)floor($slider->getSlidesPerView() / 2) ?: 2),
-                ],
-                1024 => [
-                    'slidesPerView' => $slider->getSlidesPerView(),
-                ],
+                0 => $mobile,
+                768 => $view(max(2, (int)floor($slider->getSlidesPerView() / 2) ?: 2)),
+                1024 => $view($slider->getSlidesPerView()),
+                1280 => $view($slider->getSlidesPerViewLarge()),
+                1600 => $view($slider->getSlidesPerViewXlarge()),
             ],
         ], JSON_UNESCAPED_SLASHES);
     }
@@ -152,6 +170,7 @@ class Slider extends Template
         return array_merge(parent::getCacheKeyInfo(), [
             'fslider',
             $slider ? $slider->getId() : 'none',
+            (int)$this->isTitleVisible(),
             (int)$this->storeManager->getStore()->getId(),
         ]);
     }

@@ -16,6 +16,8 @@ interface SliderInterface
     public const SHOW_NAVIGATION = 'show_navigation';
     public const SLIDES_PER_VIEW = 'slides_per_view';
     public const SLIDES_PER_VIEW_MOBILE = 'slides_per_view_mobile';
+    public const SLIDES_PER_VIEW_LARGE = 'slides_per_view_large';
+    public const SLIDES_PER_VIEW_XLARGE = 'slides_per_view_xlarge';
     public const SPACE_BETWEEN = 'space_between';
     public const STORES = 'stores';
 
@@ -38,6 +40,8 @@ interface SliderInterface
     public function getShowNavigation(): bool;
     public function getSlidesPerView(): int;
     public function getSlidesPerViewMobile(): int;
+    public function getSlidesPerViewLarge(): int;
+    public function getSlidesPerViewXlarge(): int;
     public function getSpaceBetween(): int;
 
     /**

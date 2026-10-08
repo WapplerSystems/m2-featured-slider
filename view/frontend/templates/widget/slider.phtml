@@ -16,7 +16,7 @@ $config = $block->getSwiperConfigJson();
 ?>
 <div class="fslider-wrapper" id="<?= $escaper->escapeHtmlAttr($domId) ?>"
      data-mage-init='{"WapplerSystems_FeaturedSlider/js/slider": <?= /* @noEscape */ $config ?>}'>
-    <?php if ($slider->getTitle()): ?>
+    <?php if ($block->isTitleVisible() && $slider->getTitle()): ?>
         <h2 class="fslider-title"><?= $escaper->escapeHtml($slider->getTitle()) ?></h2>
     <?php endif; ?>
 

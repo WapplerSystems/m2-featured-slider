@@ -24,6 +24,10 @@
                 comment="Slides Per View (Desktop)"/>
         <column xsi:type="int" name="slides_per_view_mobile" padding="10" unsigned="true" nullable="false" default="1"
                 comment="Slides Per View (Mobile)"/>
+        <column xsi:type="int" name="slides_per_view_large" padding="10" unsigned="true" nullable="false" default="0"
+                comment="Slides Per View from 1280px (0 = Desktop value)"/>
+        <column xsi:type="int" name="slides_per_view_xlarge" padding="10" unsigned="true" nullable="false" default="0"
+                comment="Slides Per View from 1600px (0 = Large value)"/>
         <column xsi:type="int" name="space_between" padding="10" unsigned="true" nullable="false" default="20"
                 comment="Space Between Slides (px)"/>
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"

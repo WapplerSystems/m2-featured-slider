@@ -217,6 +217,22 @@
                 <dataScope>slides_per_view_mobile</dataScope>
             </settings>
         </field>
+        <field name="slides_per_view_large" formElement="input">
+            <settings>
+                <dataType>number</dataType>
+                <label translate="true">Slides Per View (from 1280px)</label>
+                <notice translate="true">0 = same as Desktop</notice>
+                <dataScope>slides_per_view_large</dataScope>
+            </settings>
+        </field>
+        <field name="slides_per_view_xlarge" formElement="input">
+            <settings>
+                <dataType>number</dataType>
+                <label translate="true">Slides Per View (from 1600px)</label>
+                <notice translate="true">0 = same as 1280px value</notice>
+                <dataScope>slides_per_view_xlarge</dataScope>
+            </settings>
+        </field>
         <field name="space_between" formElement="input">
             <settings>
                 <dataType>number</dataType>

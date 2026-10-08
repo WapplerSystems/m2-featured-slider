@@ -10,6 +10,11 @@
                        source_model="WapplerSystems\FeaturedSlider\Model\Source\SliderIdentifiers">
                 <label translate="true">Slider</label>
             </parameter>
+            <parameter name="show_title" xsi:type="select" visible="true"
+                       source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show Slider Title</label>
+                <value>1</value>
+            </parameter>
         </parameters>
     </widget>
 </widgets>

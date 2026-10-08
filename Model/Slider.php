@@ -92,6 +92,22 @@ class Slider extends AbstractModel implements SliderInterface
         return (int)($this->getData(self::SLIDES_PER_VIEW_MOBILE) ?: 1);
     }
 
+    /**
+     * Viewport >= 1280px; falls back to the desktop value when unset.
+     */
+    public function getSlidesPerViewLarge(): int
+    {
+        return (int)($this->getData(self::SLIDES_PER_VIEW_LARGE) ?: $this->getSlidesPerView());
+    }
+
+    /**
+     * Viewport >= 1600px; falls back to the large value when unset.
+     */
+    public function getSlidesPerViewXlarge(): int
+    {
+        return (int)($this->getData(self::SLIDES_PER_VIEW_XLARGE) ?: $this->getSlidesPerViewLarge());
+    }
+
     public function getSpaceBetween(): int
     {
         return (int)($this->getData(self::SPACE_BETWEEN) ?: 20);
